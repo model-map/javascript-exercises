@@ -3,34 +3,21 @@ const caesar = function(password,shift) {
     console.log('z'.charCodeAt()); //122
     console.log('A'.charCodeAt()); //65
     console.log('Z'.charCodeAt()); //90 */
-    if (shift<0) shift=(26+shift);
 
-    let passwordArray=password.split('');
-    let caeserArray=[];
-    const regAlphabets=/[a-zA-Z]/gi;
+    while (shift<0) shift=(26+shift);
 
-    for (const letter of passwordArray){
-        if (letter.match(regAlphabets)){
+    let caeserArray=password.split('').map(letter =>{
+        if (letter.match(/[a-z]/gi)){
             let charCode=letter.charCodeAt();
             let newCharCode=charCode+shift;
-            if (charCode<=90 && newCharCode>90) {
-                do{
-                    newCharCode=(newCharCode-26)
-                }while (newCharCode>90);
-                }
-            else if (charCode<=122 && newCharCode>122){
-                do{
-                    newCharCode=(newCharCode-26)
-                }while (newCharCode>122);
-                };
-            
-            caeserArray.push(String.fromCharCode(newCharCode));
+            while ((charCode<=90 && newCharCode>90) || (charCode<=122 && newCharCode>122)) newCharCode-=26;
+            return(String.fromCharCode(newCharCode));
         }
-        else caeserArray.push(letter);
-    }
+        else return(letter);
+    })
 
     let caesarPassword=caeserArray.join('');
-    console.log(`og pass: ${password}\ncaeser pass: ${caesarPassword}`);
+    // console.log(`og pass: ${password}\ncaeser pass: ${caesarPassword}`);
     return caesarPassword;
 };
 
