@@ -1,4 +1,5 @@
 function pigLatin(string) {
+    const ay='ay';
 
 };
   
